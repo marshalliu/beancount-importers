@@ -1,0 +1,5 @@
+  - pip:
+    - jieba
+    - fava
+    - smart-importer
+    - beancount

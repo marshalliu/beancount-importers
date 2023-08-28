@@ -24,10 +24,9 @@ from dateutil.parser import parse
 class WechatImporter(importer.ImporterProtocol):
     """An importer for Wechat CSV files."""
 
-    def __init__(self, accountDict: Dict, expenseDict: Dict):
+    def __init__(self, accountDict: Dict):
         # print(file_type)
         self.accountDict = accountDict
-        self.expenseDict = expenseDict
         self.currency = "CNY"
         pass
 
@@ -74,19 +73,11 @@ class WechatImporter(importer.ImporterProtocol):
                         # print(asset_k, asset_v)
                         account_1 = asset_v
 
-
-                account_2_text = payee.rstrip(",")
-                account_2='Expense.FIXME'
-
-                for asset_k, asset_v in self.expenseDict.items():
-                    if account_2_text.find(asset_k)!=-1:
-                        account_2 = asset_v
-
                 txn = data.Transaction(
                     meta, date, self.FLAG, payee, narration, data.EMPTY_SET, data.EMPTY_SET, [
                         data.Posting(account_1, amount,
                                      None, None, None, None),
-                        data.Posting(account_2, -amount, None, None, None, None),
+                        #data.Posting(account_2, -amount, None, None, None, None),
                     ])
 
                 entries.append(txn)

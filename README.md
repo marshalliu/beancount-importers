@@ -1,32 +1,4 @@
-<http://blog.heysh.xyz/2019/11/07/netease-youqian-with-beancount/>
-
-## 环境设置
-
-建议使用[Anaconda](https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/)
-来进行环境管理。我之前用的Poetry在Windows下配置出现了一些小问题。
-
-```bash
-conda env create -f environment.yml
-conda activate bc
-```
-当然也可以直接按照`environment.yml`安装需要的Packages。
-
-## Auto initialize some income/expense accounts for Beancount
-
-```bash
-python importers/youqian/accountInit.py > New_Accounts.bean
-# 如果已经建立了一部分账户
-python importers/youqian/accountInit.py Existing_Accounts.bean > New_Accounts.bean
-```
-
-## Import Netease Youqian（网易有钱）
-
-```
-bean-extract importers/youqian/youqian_expense.import documents.tmp/expense.csv > expense.bean
-bean-extract importers/youqian/youqian_income.import documents.tmp/income.csv > income.bean
-```
-
-## Other importers
+## importers
 
 [smart_importer](https://github.com/beancount/smart_importer) needs to be installed to import smartly.我还添加了jieba分词，对中文也许有作用。
 
@@ -86,5 +58,3 @@ set PYTHONIOENCODING=utf-8:surrogateescape
 ```
 
 或者一劳永逸，在控制面版的“区域设置”中勾选“使用UTF-8提供全球语言支持”。See https://www.tutorialexample.com/set-windows-powershell-to-utf-8-encoding-to-fix-gbk-codec-can-not-encode-character-error-powershell-tutorial/
-
-另外感谢[zsxsoft](https://github.com/zsxsoft/my-beancount-scripts)，不得不说，通过eml文件导入账单真是个好主意。~~不再是了，当然还是要感谢。~~ 现在又是了~

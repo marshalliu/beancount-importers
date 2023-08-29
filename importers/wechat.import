@@ -29,6 +29,8 @@ accountDict = {
     "浦发银行": "Liabilities:Life:CreditCard:SPDB",
     "零钱": "Assets:Flow:EBank:WeChat",
     "农业银行": "Assets:Flow:Bank:ABCDebt",
+    "工商银行": "Assets:Flow:Bank:ICBCDebt",
+    "农业银行": "Assets:Flow:Bank:ABCDebt",
     "/": "Assets:Flow:EBank:WeChat"
 }
 

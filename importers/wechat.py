@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+#!/usr/bin/env python
 
 """Importer for 微信
 """
@@ -59,6 +60,7 @@ class WechatImporter(importer.ImporterProtocol):
 
                 meta = data.new_metadata(file.name, index)
                 date = parse(row['交易时间']).date()
+                #logging.warning("amount=%s", row['金额(元)'])
                 raw_amount = D(row['金额(元)'].lstrip("¥"))
                 isExpense = True if (row['收/支'] == '支出' or row['收/支'] == '/') else False
                 if isExpense:

@@ -27,11 +27,12 @@ _COMMENTS_STR = "收款方备注:二维码收款付款方留言:"
 class WechatImporter(importer.ImporterProtocol):
     """An importer for Wechat CSV files."""
 
-    def __init__(self, account="Assets:Flow:EBank:WeChat", accountDict: Dict=None):
+    def __init__(self, account="Assets:Flow:EBank:WeChat", accountDict: Dict=None, expenseDict: Dict=None):
         # print(file_type)
         self.account = account
         self.accountDict = accountDict
-        self.default_set = frozenset({"wechat"})
+        self.expenseDict = expenseDict
+        self.default_set = frozenset({"WeChat"})
         self.currency = "CNY"
         self.source="微信支付"
         pass
@@ -66,7 +67,6 @@ class WechatImporter(importer.ImporterProtocol):
                     continue  # skip the transfer to wechat
 
                 flag = flags.FLAG_WARNING
-                dt = parse(row["交易时间"])
                 raw_amount = D(row['金额(元)'].lstrip("¥"))
                 isExpense = True if (row['收/支'] == '支出' or row['收/支'] == '/') else False
                 if isExpense:
@@ -84,11 +84,18 @@ class WechatImporter(importer.ImporterProtocol):
                 for asset_k, asset_v in self.accountDict.items():
                     if asset_k in account_1_text:
                         account_1 = asset_v
+
+                account_2 = None
+                for asset_k, asset_v in self.expenseDict.items():
+                    if asset_k.find(",") > -1:
+                        for asset_k1 in asset_k.split(","):
+                            if asset_k1 in payee or asset_k1 in narration:
+                                account_2 = asset_v
+                                flag = flags.FLAG_OKAY
+                    elif asset_k in payee or asset_k in narration:
+                        account_2 = asset_v
                         flag = flags.FLAG_OKAY
-
-                # Insert a final balance check.
-                postings = [data.Posting(account_1, amount, None, None, None, None)]
-
+                
                 if row["当前状态"] == "充值完成":
                     postings.insert(
                         0,
@@ -96,21 +103,30 @@ class WechatImporter(importer.ImporterProtocol):
                     )
                     narration = "微信零钱充值"
                     payee = None
+                elif row["交易类型"] == "微信红包" and account_1_text.rstrip("\t") == "/":
+                    account_2 = self.accountDict["微信红包"]
+                    flag = flags.FLAG_OKAY
+
+                # Insert a final balance check.
+                if (account_2 != None):
+                    postings = [data.Posting(account_1, amount, None, None, None, None),
+                                data.Posting(account_2, -amount, None, None, None, None)]
+                else: 
+                    postings = [data.Posting(account_1, amount, None, None, None, None)]
 
                 meta = data.new_metadata(
                     file.name, index, kvlist={
                         "merchantId": row["商户单号"].rstrip("\t"),
-                        "method":account_1_text.rstrip("\t"),
+                        "method": payee,
                         "orderId": row["交易单号"].rstrip("\t"),
-                        "payTime": row["交易时间"].rstrip("\t"),
-                        "source": self.source.rstrip("\t"),
-                        "status": row["当前状态"].rstrip("\t"),
-                        "txType": row["交易类型"].rstrip("\t"),
-                        "type": row['收/支'].rstrip("\t")
+                        "payTime": row["交易时间"],
+                        "source": "微信支付",
+                        "status": row["当前状态"],
+                        "txType": row["交易类型"],
+                        "type": row["收/支"]
                         }
                 )
-
-                logging.debug("amount=%s", row['金额(元)'])
+                #logging.warn("%s:%s:%s", payee, narration, account_2)
 
                 txn = data.Transaction(
                     meta,

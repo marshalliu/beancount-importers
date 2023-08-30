@@ -25,6 +25,7 @@ from importers.wechat import WechatImporter
 account = "Assets:Flow:EBank:WeChat"
 
 accountDict = {
+    "微信红包": "Income:Investment:OtherIncome",
     "平安银行": "Liabilities:Life:CreditCard:Pingan",
     "建设银行(1201)": "Liabilities:Life:CreditCard:CCB",
     "建设银行(6396)": "Liabilities:Life:CreditCard:CCB",
@@ -38,17 +39,32 @@ accountDict = {
     "/": "Assets:Flow:EBank:WeChat"
 }
 
+expenseDict = {
+    "餐厅,餐饮,火锅,西贝莜面村,麦当劳,汉堡王,KITCHEN": "Expenses:Life:Dinner:Lunch",
+    "上海市实验学校": "Expenses:Life:Dinner:Lunch",
+    "好特卖HotMaxx,阿果果上海齐河路店,全家": "Expenses:Life:Dining:Drinking",
+    "多乐之日,早安巴黎": "Expenses:Life:Dining:Refreshment",
+    "红星欧丽洛雅家居生活广场,停车,临停订单,恒盛苑": "Expenses:Life:Auto:Parking",
+    "石化,石油": "Expenses:Life:Auto:Gas",
+    "剑桥英语": "Expenses:Life:Education:TutoringFee",
+    "奥付云(易迅)": "Expenses:Life:ClothingBeauty:Haircut",
+    "民航上海医院,唯宜儿科,平安健康": "Expenses:Life:Medical:Drugs",
+    "安心接送,同程旅行,滴滴": "Expenses:Life:Transportation:Taxi",
+    "菜鸟裹裹,顺丰": "Expenses:Life:Transportation:Express",
+    "惠省钱": "Expenses:Life:Entertainment:Shopping",
+    "SECA,Rui": "Expenses:Life:Entertainment:FitnessActivity",
+}
 
 if isSmart:
     CONFIG = [
         # WechatImporter(accountDict=accountDict)
-        apply_hooks(WechatImporter(account, accountDict=accountDict),
+        apply_hooks(WechatImporter(account, accountDict=accountDict, expenseDict=expenseDict),
                     [DuplicateDetector(), PredictPostings(string_tokenizer=tokenizer)])
         # SmartWechatImporter(accountDict=accountDict)
     ]
 else:
     CONFIG = [
-        WechatImporter(account, accountDict=accountDict)
+        WechatImporter(account, accountDict=accountDict, expenseDict=expenseDict)
         # apply_hooks(WechatImporter(accountDict=accountDict), [PredictPostings()])
         # SmartWechatImporter(accountDict=accountDict)
     ]

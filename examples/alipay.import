@@ -44,7 +44,7 @@ expenseDict = {
     "上海市实验学校": "Expenses:Life:Dinner:Lunch",
     "好特卖HotMaxx,阿果果上海齐河路店,全家": "Expenses:Life:Dining:Drinking",
     "多乐之日,早安巴黎": "Expenses:Life:Dining:Refreshment",
-    "鸡蛋,火腿,红薯": "Expenses:Life:Dining:Ingredients",
+    "鸡蛋,火腿,红薯,馄饨,烧卖,挂面,意面": "Expenses:Life:Dining:Ingredients",
     "红星欧丽洛雅家居生活广场,停车,临停订单,恒盛苑": "Expenses:Life:Auto:Parking",
     "石化,石油": "Expenses:Life:Auto:Gas",
     "剑桥英语": "Expenses:Life:Education:TutoringFee",

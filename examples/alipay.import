@@ -53,6 +53,7 @@ expenseDict = {
     "安心接送,同程旅行,滴滴": "Expenses:Life:Transportation:Taxi",
     "菜鸟裹裹,顺丰": "Expenses:Life:Transportation:Express",
     "惠省钱": "Expenses:Life:Entertainment:Shopping",
+    "保鲜袋": "Expenses:Life:Living:Appliances",
     "SECA,Rui": "Expenses:Life:Entertainment:FitnessActivity",
 }
 

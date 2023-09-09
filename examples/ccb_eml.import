@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+
+import sys
+
+import beancount.ingest.extract
+
+isSmart = True
+try:
+    from smart_importer import apply_hooks, PredictPostings
+    from smart_importer.detector import DuplicateDetector
+    import jieba
+    jieba.initialize()
+    def tokenizer(s): return list(jieba.cut(s))
+except ImportError:
+    isSmart = False
+
+account = "Liabilities:Life:CreditCard:CCB"
+
+beancount.ingest.extract.HEADER = ''
+sys.path.append("./")
+from importers.ccb_eml import CcbEmlImporter
+
+expenseDict = {
+    "餐厅,餐饮,火锅,麦当劳,汉堡王,KITCHEN,拉扎斯网络科技": "Expenses:Life:Dining:Lunch",
+    "上海市实验学校": "Expenses:Life:Dining:Lunch",
+    "好特卖HotMaxx,阿果果上海齐河路店,全家,尚优选超市": "Expenses:Life:Dining:Drinking",
+    "多乐之日,早安巴黎": "Expenses:Life:Dining:Breakfast",
+    "果茶,燕麦奶,小香肠,鸭舌": "Expenses:Life:Dining:Refreshment",
+    "食材,鸡蛋,火腿,红薯,馄饨,烧卖,挂面,意面,西贝莜面村,梅干菜,披萨": "Expenses:Life:Dining:Ingredients",
+    "伴手礼,贺卡,礼物": "Expenses:Life:Social:Gifts",
+    "停车,ETCP,高地物业上海中星美华": "Expenses:Life:Auto:Parking",
+    "石化,石油": "Expenses:Life:Auto:Gas",
+    "剑桥英语": "Expenses:Life:Education:TutoringFee",
+    "奥付云(易迅)": "Expenses:Life:ClothingBeauty:Haircut",
+    "优衣库,T恤,裙子": "Expenses:Life:ClothingBeauty:Clothes",
+    "欧莱雅": "Expenses:Life:ClothingBeauty:Cosmetics",
+    "民航上海医院,唯宜儿科,平安健康,维生素": "Expenses:Life:Medical:Drugs",
+    "安心接送,同程旅行,滴滴": "Expenses:Life:Transportation:Taxi",
+    "菜鸟裹裹,顺丰": "Expenses:Life:Transportation:Express",
+    "惠省钱": "Expenses:Life:Entertainment:Shopping",
+    "教辅,教材": "Expenses:Life:Publications:Books",
+    "复印纸,日记本": "Expenses:Life:Education:Stationery",
+    "保鲜袋,牙刷,眼镜布,美甲工具,擦眼镜纸": "Expenses:Life:Living:Appliances",
+    "网上国网": "Expenses:Life:Utilities:Electric",
+    "SECA,Rui": "Expenses:Life:Entertainment:FitnessActivity",
+}
+
+if isSmart:
+    CONFIG = [
+        apply_hooks(CcbEmlImporter(account, expenseDict=expenseDict), [
+            DuplicateDetector(), PredictPostings(string_tokenizer=tokenizer)])
+    ]
+else:
+    CONFIG = [
+        CcbEmlImporter(account, expenseDict=expenseDict)
+    ]

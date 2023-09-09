@@ -38,7 +38,7 @@ class AlipayImporter(importer.ImporterProtocol):
     def identify(self, file):
         # Match if the filename is as downloaded and the header has the unique
         # fields combination we're looking for.
-        return re.match(r"alipay_record_\d{8}-\d{8}_\d{6}.csv", path.basename(file.name))
+        return re.match(r"alipay_record_\d{8}_\d{6}.csv", path.basename(file.name))
 
     def file_name(self, file):
         return 'alipay.{}'.format(path.basename(file.name))

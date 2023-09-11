@@ -19,7 +19,7 @@ except ImportError:
 
 beancount.ingest.extract.HEADER = ''
 sys.path.append("./")
-from importers.alipay import AlipayImporter
+from importers.alipay import AlipayImporter, AlipayDuplicatesComparator
 
 account = "Assets:Flow:EBank:Alipay"
 
@@ -68,12 +68,9 @@ expenseDict = {
 if isSmart:
     CONFIG = [
         apply_hooks(AlipayImporter(account, accountDict=accountDict, expenseDict=expenseDict),
-                    [DuplicateDetector(), PredictPostings(string_tokenizer=tokenizer)])
-        # SmartWechatImporter(accountDict=accountDict)
+                    [DuplicateDetector(comparator=DuplicatesComparator), PredictPostings(string_tokenizer=tokenizer)])
     ]
 else:
     CONFIG = [
         AlipayImporter(account, accountDict=accountDict, expenseDict=expenseDict)
-        # apply_hooks(WechatImporter(accountDict=accountDict), [PredictPostings()])
-        # SmartWechatImporter(accountDict=accountDict)
     ]

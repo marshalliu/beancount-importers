@@ -19,8 +19,7 @@ except ImportError:
 
 beancount.ingest.extract.HEADER = ''
 sys.path.append("./")
-from importers.wechat import WechatImporter
-# from importers.wechat import SmartWechatImporter
+from importers.wechat import WechatImporter, WechatDuplicatesComparator
 
 account = "Assets:Flow:EBank:WeChat"
 
@@ -59,12 +58,9 @@ if isSmart:
     CONFIG = [
         # WechatImporter(accountDict=accountDict)
         apply_hooks(WechatImporter(account, accountDict=accountDict, expenseDict=expenseDict),
-                    [DuplicateDetector(), PredictPostings(string_tokenizer=tokenizer)])
-        # SmartWechatImporter(accountDict=accountDict)
+                    [DuplicateDetector(comparator=WechatDuplicatesComparator), PredictPostings(string_tokenizer=tokenizer)])
     ]
 else:
     CONFIG = [
         WechatImporter(account, accountDict=accountDict, expenseDict=expenseDict)
-        # apply_hooks(WechatImporter(accountDict=accountDict), [PredictPostings()])
-        # SmartWechatImporter(accountDict=accountDict)
     ]

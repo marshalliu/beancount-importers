@@ -19,7 +19,7 @@ except ImportError:
 
 beancount.ingest.extract.HEADER = ''
 sys.path.append("./")
-from importers.alipay import AlipayImporter, AlipayDuplicatesComparator
+from importers.alipay import AlipayImporter
 
 account = "Assets:Flow:EBank:Alipay"
 

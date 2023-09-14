@@ -10,17 +10,13 @@ import csv
 import datetime
 import logging
 import re
-import sys
-from enum import Enum
 from os import path
 from typing import Dict
 
 from beancount.core import data, flags
 from beancount.core.amount import Amount
 from beancount.core.number import ZERO, D
-from beancount.ingest import importer, similar
-
-from smart_importer.hooks import ImporterHook
+from beancount.ingest import importer
 
 from dateutil.parser import parse
 # from smart_importer import PredictPostings, PredictPayees
@@ -145,12 +141,3 @@ class WechatImporter(importer.ImporterProtocol):
                 entries.append(txn)
 
         return entries
-
-
-class WechatDuplicatesComparator(ImporterHook):
-    def __init__(self, comparator=None, window_days=2):
-        pass
-
-    def __call__(self, entry1, entry2):
-        return 'orderId' in entry1.meta and 'orderId' in entry2.meta and entry1.meta['orderId'] == entry2.meta['orderId']
-

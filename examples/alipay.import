@@ -68,7 +68,7 @@ expenseDict = {
 if isSmart:
     CONFIG = [
         apply_hooks(AlipayImporter(account, accountDict=accountDict, expenseDict=expenseDict),
-                    [DuplicateDetector(comparator=DuplicatesComparator), PredictPostings(string_tokenizer=tokenizer)])
+                    [DuplicateDetector(), PredictPostings(string_tokenizer=tokenizer)])
     ]
 else:
     CONFIG = [

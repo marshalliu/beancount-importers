@@ -40,12 +40,13 @@ accountDict = {
 }
 
 expenseDict = {
-    "餐厅,餐饮,火锅,西贝莜面村,麦当劳,汉堡王,KITCHEN": "Expenses:Life:Dining:Lunch",
+    "餐厅,餐饮,火锅,西贝莜面村,麦当劳,汉堡王,KITCHEN,堂食,达美乐": "Expenses:Life:Dining:Lunch",
     "上海市实验学校": "Expenses:Life:Dining:Lunch",
     "好特卖HotMaxx,阿果果上海齐河路店,全家": "Expenses:Life:Dining:Drinking",
     "多乐之日,早安巴黎": "Expenses:Life:Dining:Breakfast",
     "红星欧丽洛雅家居生活广场,停车,临停订单,恒盛苑": "Expenses:Life:Auto:Parking",
     "石化,石油": "Expenses:Life:Auto:Gasoline",
+    "中铁网络,火车票": "Expenses:Life:Transportation:Train",
     "剑桥英语": "Expenses:Life:Education:TutoringFee",
     "奥付云(易迅)": "Expenses:Life:ClothingBeauty:Haircut",
     "民航上海医院,唯宜儿科,平安健康": "Expenses:Life:Medical:Drugs",
@@ -53,6 +54,8 @@ expenseDict = {
     "菜鸟裹裹,顺丰": "Expenses:Life:Transportation:Express",
     "惠省钱": "Expenses:Life:Entertainment:Shopping",
     "SECA,Rui": "Expenses:Life:Entertainment:FitnessActivity",
+    "公共事业费-电": "Expenses:Life:Utilities:Electric",
+    "公共事业费-燃气": "Expenses:Life:Utilities:Gas",
 }
 
 if isSmart:

@@ -45,7 +45,7 @@ class AlipayImporter(importer.ImporterProtocol):
 
     def file_date(self, file):
         # Extract the statement date from the filename.
-        return datetime.datetime.strptime(path.basename(file.name).split("-")[-1],
+        return datetime.datetime.strptime(path.basename(file.name).split("_")[-1],
                                           '%Y%m%d).csv').date()
 
     def extract(self, file, existing_entries=None):

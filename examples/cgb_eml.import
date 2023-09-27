@@ -14,11 +14,11 @@ try:
 except ImportError:
     isSmart = False
 
-account = "Liabilities:Life:CreditCard:CCB"
+account = "Liabilities:Life:CreditCard:CGB"
 
 beancount.ingest.extract.HEADER = ''
 sys.path.append("./")
-from importers.ccb_eml import CcbEmlImporter
+from importers.cgb_eml import CgbEmlImporter
 
 expenseDict = {
     "餐厅,餐饮,火锅,麦当劳,汉堡王,KITCHEN,拉扎斯网络科技": "Expenses:Life:Dining:Lunch",
@@ -29,7 +29,7 @@ expenseDict = {
     "食材,鸡蛋,火腿,红薯,馄饨,烧卖,挂面,意面,西贝莜面村,梅干菜,披萨": "Expenses:Life:Dining:Ingredients",
     "伴手礼,贺卡,礼物": "Expenses:Life:Social:Gifts",
     "停车,ETCP,高地物业上海中星美华": "Expenses:Life:Auto:Parking",
-    "石化,石油": "Expenses:Life:Auto:Gasoline",
+    "石化,石油,车主精英卡新户返现": "Expenses:Life:Auto:Gasoline",
     "剑桥英语": "Expenses:Life:Education:TutoringFee",
     "奥付云(易迅)": "Expenses:Life:ClothingBeauty:Haircut",
     "优衣库,T恤,裙子": "Expenses:Life:ClothingBeauty:Clothes",
@@ -41,16 +41,17 @@ expenseDict = {
     "教辅,教材": "Expenses:Life:Publications:Books",
     "复印纸,日记本": "Expenses:Life:Education:Stationery",
     "保鲜袋,牙刷,眼镜布,美甲工具,擦眼镜纸": "Expenses:Life:Living:Appliances",
-    "网上国网": "Expenses:Life:Utilities:Electric",
-    "SECA,Rui": "Expenses:Life:Entertainment:FitnessActivity",
+    "付费通,光大云缴费,网上国网": "Expenses:Life:Utilities:Electric",
+    "消费金": "Income:Investment:OtherIncome",
+    "交通卡": "Expenses:Life:Transportation:Metro"
 }
 
 if isSmart:
     CONFIG = [
-        apply_hooks(CcbEmlImporter(account, expenseDict=expenseDict), [
+        apply_hooks(CgbEmlImporter(account, expenseDict=expenseDict), [
             DuplicateDetector(), PredictPostings(string_tokenizer=tokenizer)])
     ]
 else:
     CONFIG = [
-        CcbEmlImporter(account, expenseDict=expenseDict)
+        CgbEmlImporter(account, expenseDict=expenseDict)
     ]

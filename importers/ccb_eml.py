@@ -48,7 +48,7 @@ class CcbEmlImporter(importer.ImporterProtocol):
         return self.account_name
 
     def extract(self, file, existing_entries=None):
-        # Open the CSV file and create directives.
+        # Open the eml file and create directives.
         entries = []
         index = 0
         with open(file.name, 'rb') as f:

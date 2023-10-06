@@ -31,6 +31,7 @@ accountDict = {
     "中信银行": "Liabilities:Life:CreditCard:CITIC",
     "浦发银行": "Liabilities:Life:CreditCard:SPDB",
     "广发银行": "Liabilities:Life:CreditCard:CGB",
+    "中国银行(2465)": "Liabilities:Life:CreditCard:BOC",
     "零钱": "Assets:Flow:EBank:WeChat",
     "农业银行": "Assets:Flow:Bank:ABCDebt",
     "工商银行": "Assets:Flow:Bank:ICBCDebt",

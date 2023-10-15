@@ -89,7 +89,13 @@ class AlipayImporter(importer.ImporterProtocol):
                         account_2 = asset_v
                         flag = flags.FLAG_OKAY
                 
-               # if row["当前状态"] == "":
+                if '还款成功' in row['交易状态'] and row['对方账号'] == "/":
+                  account_2 = 'Assets.FIXME'
+                  for asset_k, asset_v in self.accountDict.items():
+                      if asset_k in payee:
+                         account_2 = asset_v
+                         amount = -amount
+                         flag = flags.FLAG_OKAY
                #     postings.insert(
                #         0,
                #         data.Posting(self.account, -amount, None, None, None, None),

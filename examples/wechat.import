@@ -29,7 +29,7 @@ accountDict = {
     "建设银行(1201)": "Liabilities:Life:CreditCard:CCB",
     "建设银行(6396)": "Liabilities:Life:CreditCard:CCB",
     "中信银行": "Liabilities:Life:CreditCard:CITIC",
-    "浦发银行": "Liabilities:Life:CreditCard:SPDB",
+    "浦发银行(3236)": "Liabilities:Life:CreditCard:SPDB",
     "广发银行": "Liabilities:Life:CreditCard:CGB",
     "中国银行(2465)": "Liabilities:Life:CreditCard:BOC",
     "零钱": "Assets:Flow:EBank:WeChat",
@@ -37,6 +37,7 @@ accountDict = {
     "工商银行": "Assets:Flow:Bank:ICBCDebt",
     "农业银行": "Assets:Flow:Bank:ABCDebt",
     "建设银行(3456)": "Assets:Flow:Bank:CCBDebt",
+    "浦发银行(2073)": "Assets:Flow:Bank:SPDBDebt",
     "/": "Assets:Flow:EBank:WeChat"
 }
 
@@ -48,17 +49,18 @@ expenseDict = {
     "红星欧丽洛雅家居生活广场,停车,临停订单,恒盛苑": "Expenses:Life:Auto:Parking",
     "石化,石油": "Expenses:Life:Auto:Gasoline",
     "中铁网络,火车票": "Expenses:Life:Transportation:Train",
-    "剑桥英语": "Expenses:Life:Education:TutoringFee",
+    "剑桥英语,优考试": "Expenses:Life:Education:TutoringFee",
     "奥付云(易迅)": "Expenses:Life:ClothingBeauty:Haircut",
     "民航上海医院,唯宜儿科,平安健康": "Expenses:Life:Medical:Drugs",
     "安心接送,同程旅行,滴滴": "Expenses:Life:Transportation:Taxi",
     "菜鸟裹裹,顺丰": "Expenses:Life:Transportation:Express",
     "惠省钱": "Expenses:Life:Entertainment:Shopping",
-    "SECA,Rui": "Expenses:Life:Entertainment:FitnessActivity",
+    "SECA,Rui,国际象棋": "Expenses:Life:Entertainment:FitnessActivity",
     "公共事业费-水": "Expenses:Life:Utilities:Water",
-    "公共事业费-电": "Expenses:Life:Utilities:Electric",
+    "公共事业费-电,电费": "Expenses:Life:Utilities:Electric",
     "公共事业费-燃气": "Expenses:Life:Utilities:Gas",
     "GDC": "Expenses:Life:Entertainment:Exhibition",
+    "东航机票": "Expenses:Life:Transportation:Plane",
 }
 
 if isSmart:

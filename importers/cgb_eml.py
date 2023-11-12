@@ -79,7 +79,6 @@ class CgbEmlImporter(importer.ImporterProtocol):
                 for tr in trs:
                     cols=tr.find_all('td')
                     cols=[x.text.strip() for x in cols]
-                    logging.warning(cols)
                     trade_date = cols[0]
                     try:
                         dt = datetime.strptime(trade_date, "%Y/%m/%d")

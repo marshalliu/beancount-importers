@@ -53,16 +53,14 @@ class CcbEmlImporter(importer.ImporterProtocol):
         index = 0
         with open(file.name, 'rb') as f:
             eml = parser.BytesParser(policy=policy.default).parse(fp=f)
-            # b = base64.b64decode(eml.get_payload()[0].get_payload())
             b = eml.get_payload()[0].get_payload(decode=True).decode("UTF8")
             d = BeautifulSoup(b, "lxml")
             date_range = d.findAll(text=re.compile(
                 '\d{4}\/\d{1,2}\/\d{1,2}-\d{4}\/\d{1,2}\/\d{1,2}'))[0]
             transaction_date = dateparse(
                 date_range.split('-')[1].split('(')[0]).date()
-
-            # 第1个875宽度的table为账单总金额 
-            balance = d.find('table', width="875").find_all("tr")[1].find_all("td")[2].text
+            
+            balance = d.find('td', width="62%").find_all("tr")[3].find_all("td")[1].text
             txn_balance = data.Balance(
                 account=self.account_name,
                 amount=-Amount(D(balance), 'CNY'),
@@ -72,6 +70,19 @@ class CcbEmlImporter(importer.ImporterProtocol):
                 date=transaction_date + timedelta(days=1)
             )
             entries.append(txn_balance)
+            logging.warning("balance=%s", balance)
+
+            # 第1个875宽度的table为账单总金额 
+            #balance = d.find('table', width="875").find_all("tr")[1].find_all("td")[2].text
+            #txn_balance = data.Balance(
+            #    account=self.account_name,
+            #    amount=-Amount(D(balance), 'CNY'),
+            #    meta=data.new_metadata(".", 1000),
+            #    tolerance=None,
+            #    diff_amount=None,
+            #    date=transaction_date + timedelta(days=1)
+            #)
+            #entries.append(txn_balance)
 
             # 第2个875宽度的table为账单明细列表 
             lists = d.find_all('table', width="875")[1]

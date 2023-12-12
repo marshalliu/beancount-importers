@@ -29,7 +29,7 @@ expenseDict = {
     "食材,鸡蛋,火腿,红薯,馄饨,烧卖,挂面,意面,西贝莜面村,梅干菜,披萨": "Expenses:Life:Dining:Ingredients",
     "伴手礼,贺卡,礼物": "Expenses:Life:Social:Gifts",
     "停车,ETCP,高地物业上海中星美华": "Expenses:Life:Auto:Parking",
-    "石化,石油,车主精英卡新户返现,车主加油消费返现奖励": "Expenses:Life:Auto:Gasoline",
+    "石化,石油,车主精英卡新户返现,加油消费返现奖励": "Expenses:Life:Auto:Gasoline",
     "剑桥英语": "Expenses:Life:Education:TutoringFee",
     "奥付云(易迅)": "Expenses:Life:ClothingBeauty:Haircut",
     "优衣库,T恤,裙子": "Expenses:Life:ClothingBeauty:Clothes",

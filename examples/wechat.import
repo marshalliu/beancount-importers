@@ -53,6 +53,7 @@ expenseDict = {
     "奥付云(易迅)": "Expenses:Life:ClothingBeauty:Haircut",
     "民航上海医院,唯宜儿科,平安健康": "Expenses:Life:Medical:Drugs",
     "安心接送,同程旅行,滴滴": "Expenses:Life:Transportation:Taxi",
+    "上海地铁": "Expenses:Life:Transportation:Metro",
     "菜鸟裹裹,顺丰": "Expenses:Life:Transportation:Express",
     "惠省钱": "Expenses:Life:Entertainment:Shopping",
     "SECA,Rui,国际象棋": "Expenses:Life:Entertainment:FitnessActivity",

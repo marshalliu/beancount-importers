@@ -51,7 +51,7 @@ expenseDict = {
     "石化,石油": "Expenses:Life:Auto:Gasoline",
     "中铁网络,火车票": "Expenses:Life:Transportation:Train",
     "剑桥英语,优考试": "Expenses:Life:Education:TutoringFee",
-    "奥付云(易迅)": "Expenses:Life:ClothingBeauty:Haircut",
+    "易迅": "Expenses:Life:ClothingBeauty:Haircut",
     "民航上海医院,唯宜儿科,平安健康": "Expenses:Life:Medical:Drugs",
     "安心接送,同程旅行,滴滴": "Expenses:Life:Transportation:Taxi",
     "地铁": "Expenses:Life:Transportation:Metro",

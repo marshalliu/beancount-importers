@@ -26,7 +26,7 @@ account = "Assets:Flow:EBank:WeChat"
 accountDict = {
     "微信红包": "Income:Investment:OtherIncome",
     "平安银行": "Liabilities:Life:CreditCard:Pingan",
-    "建设银行(1201)": "Liabilities:Life:CreditCard:CCB",
+    "建设银行(6095)": "Liabilities:Life:CreditCard:CCB",
     "建设银行(6396)": "Liabilities:Life:CreditCard:CCB",
     "中信银行": "Liabilities:Life:CreditCard:CITIC",
     "浦发银行(3236)": "Liabilities:Life:CreditCard:SPDB",

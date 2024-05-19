@@ -26,17 +26,14 @@ account = "Assets:Flow:EBank:WeChat"
 accountDict = {
     "微信红包": "Income:Investment:OtherIncome",
     "平安银行": "Liabilities:Life:CreditCard:Pingan",
-    "建设银行(6095)": "Liabilities:Life:CreditCard:CCB",
-    "建设银行(6396)": "Liabilities:Life:CreditCard:CCB",
+    "建设银行信用卡": "Liabilities:Life:CreditCard:CCB",
     "中信银行": "Liabilities:Life:CreditCard:CITIC",
-    "浦发银行(3236)": "Liabilities:Life:CreditCard:SPDB",
     "广发银行": "Liabilities:Life:CreditCard:CGB",
-    "中国银行(2465)": "Liabilities:Life:CreditCard:BOC",
     "零钱": "Assets:Flow:EBank:WeChat",
     "农业银行": "Assets:Flow:Bank:ABCDebt",
     "工商银行": "Assets:Flow:Bank:ICBCDebt",
     "农业银行": "Assets:Flow:Bank:ABCDebt",
-    "建设银行(3456)": "Assets:Flow:Bank:CCBDebt",
+    "建设银行储蓄卡": "Assets:Flow:Bank:CCBDebt",
     "浦发银行(2073)": "Assets:Flow:Bank:SPDBDebt",
     "/": "Assets:Flow:EBank:WeChat"
 }

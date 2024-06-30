@@ -27,6 +27,7 @@ accountDict = {
     "微信红包": "Income:Investment:OtherIncome",
     "平安银行": "Liabilities:Life:CreditCard:Pingan",
     "建设银行信用卡": "Liabilities:Life:CreditCard:CCB",
+    "汇丰银行信用卡": "Liabilities:Life:CreditCard:HSBC",
     "中信银行": "Liabilities:Life:CreditCard:CITIC",
     "广发银行": "Liabilities:Life:CreditCard:CGB",
     "零钱": "Assets:Flow:EBank:WeChat",

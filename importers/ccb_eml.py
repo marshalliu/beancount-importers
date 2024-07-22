@@ -70,7 +70,6 @@ class CcbEmlImporter(importer.ImporterProtocol):
                 date=transaction_date + timedelta(days=1)
             )
             entries.append(txn_balance)
-            logging.warning("balance=%s", balance)
 
             # 第1个875宽度的table为账单总金额 
             #balance = d.find('table', width="875").find_all("tr")[1].find_all("td")[2].text

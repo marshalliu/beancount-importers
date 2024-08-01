@@ -48,7 +48,7 @@ expenseDict = {
 if isSmart:
     CONFIG = [
         apply_hooks(HsbcPDFImporter(account=account, expenseDict=expenseDict), [
-                    DuplicateDetector(), PredictPostings(string_tokenizer=tokenizer)])
+            DuplicateDetector(), PredictPostings(string_tokenizer=tokenizer)])
     ]
 else:
     CONFIG = [

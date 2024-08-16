@@ -52,82 +52,75 @@ class HsbcPDFImporter(importer.ImporterProtocol):
         index = 0
         tables = camelot.read_pdf(
             file.name, 
-            flavor='stream', pages="1-end", table_areas=['50,696,465,96'],
+            flavor='stream', pages="1-end", 
             split_text=True, strip_text='\n'
         )
 
-        for t in tables[1:3]:
+        for t in tables[1:tables.n-3]:
             dfas.append(t.df)
+
 
         dfa=pd.concat([pd.DataFrame(el) for el in dfas], ignore_index=True)
 
         # Rename column as first row 
-        dfa.columns = dfa.iloc[0]
+        dfa.columns = dfa.iloc[1]
 
         # Remove first two row and last row
         dfa = dfa[2:]
         dfa = dfa[:len(dfa.index)-1]
         dfa.reset_index(drop=True)
 
+        print(dfa.to_csv)
+
         for index, df in enumerate(dfa.values):
-            flag = flags.FLAG_WARNING
-            payee = df[2]
-            price = df[3].lstrip("￥")
-            process_date = datetime.strptime("2024/"+df[0], "%Y/%m/%d")
-            currency = 'CNY'
-            amount = -Amount(D(price), currency)
-    
-            account_2 = None
-            for asset_k, asset_v in self.expenseDict.items():
-                if asset_k.find(",") > -1:
-                    for asset_k1 in asset_k.split(","):
-                        if asset_k1 in payee:
-                            account_2 = asset_v
-                            flag = flags.FLAG_OKAY
-                elif asset_k in payee:
-                    account_2 = asset_v
-                    flag = flags.FLAG_OKAY
+            if df[0][:2] != "卡号" and df[0]!="交易日期" and df[0]!="" :
+                flag = flags.FLAG_WARNING
+                payee = df[2]
+                price = re.sub('[^0-9.]+', '', df[3])
+                #price = df[3].lstrip("￥")
+                process_date = datetime.strptime("2024/"+df[0], "%Y/%m/%d")
+                currency = 'CNY'
+                amount = -Amount(D(price), currency)
+        
+                account_2 = None
+                for asset_k, asset_v in self.expenseDict.items():
+                    if asset_k.find(",") > -1:
+                        for asset_k1 in asset_k.split(","):
+                            if asset_k1 in payee:
+                                account_2 = asset_v
+                                flag = flags.FLAG_OKAY
+                    elif asset_k in payee:
+                        account_2 = asset_v
+                        flag = flags.FLAG_OKAY
 
-            if (account_2 != None):
-                postings = [data.Posting(self.account_name, amount, None, None, None, None),
-                            data.Posting(account_2, -amount, None, None, None, None)]
-            else: 
-                postings = [data.Posting(self.account_name, amount, None, None, None, None)]
+                if (account_2 != None):
+                    postings = [data.Posting(self.account_name, amount, None, None, None, None),
+                                data.Posting(account_2, -amount, None, None, None, None)]
+                else: 
+                    postings = [data.Posting(self.account_name, amount, None, None, None, None)]
 
-            meta = data.new_metadata(
-                file.name, index, kvlist={
-                    "method": payee,
-                    "settleDate": "2024/"+df[0],
-                    "source": "汇丰银行信用卡",
-                    "tradeCurrency": currency,
-                    "tradeAmt": price
-                    }
-            )
-    
-            txn = data.Transaction(
-                meta,
-                process_date.date(),
-                flag,
-                payee,
-                "",
-                self.default_set,
-                data.EMPTY_SET,
-                postings,
-            )
+                meta = data.new_metadata(
+                    file.name, index, kvlist={
+                        "method": payee,
+                        "settleDate": "2024/"+df[0],
+                        "source": "汇丰银行信用卡",
+                        "tradeCurrency": currency,
+                        "tradeAmt": price
+                        }
+                )
+        
+                txn = data.Transaction(
+                    meta,
+                    process_date.date(),
+                    flag,
+                    payee,
+                    "",
+                    self.default_set,
+                    data.EMPTY_SET,
+                    postings,
+                )
 
-            entries.append(txn)        
-
-#        entries.append(
-#           data.Balance(
-#               account=self.account_name,
-#               amount=Amount(
-#                   D(dfa.iloc[-1]["账户余额"]), self.currency),
-#               date=dfa.iloc[-1]["交易时间"] + timedelta(days=1),
-#               tolerance=None,
-#               diff_amount=None,
-#               meta=data.new_metadata(file.name, lineno=9999),
-#           )
-#        )
+                entries.append(txn)        
 
         return entries
 

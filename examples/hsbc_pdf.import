@@ -34,7 +34,7 @@ expenseDict = {
     "优衣库,T恤,裙子": "Expenses:Life:ClothingBeauty:Clothes",
     "欧莱雅": "Expenses:Life:ClothingBeauty:Cosmetics",
     "民航上海医院,唯宜儿科,平安健康,维生素": "Expenses:Life:Medical:Drugs",
-    "高德打车,安心接送,同程旅行,滴滴,嘀嘀,易行出行,优行": "Expenses:Life:Transportation:Taxi",
+    "银联云闪付,高德打车,安心接送,同程旅行,滴滴,嘀嘀,易行出行,优行": "Expenses:Life:Transportation:Taxi",
     "菜鸟裹裹,顺丰": "Expenses:Life:Transportation:Express",
     "惠省钱": "Expenses:Life:Entertainment:Shopping",
     "酒店": "Expenses:Life:Entertainment:Hotel",

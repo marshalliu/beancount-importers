@@ -65,12 +65,11 @@ class HsbcPDFImporter(importer.ImporterProtocol):
         # Rename column as first row 
         dfa.columns = dfa.iloc[1]
 
-        # Remove first two row and last row
+        # Remove first two row
         dfa = dfa[2:]
-        dfa = dfa[:len(dfa.index)-1]
         dfa.reset_index(drop=True)
-
-        print(dfa.to_csv)
+        
+        process_year = str(datetime.now().year)
 
         for index, df in enumerate(dfa.values):
             if df[0][:2] != "卡号" and df[0]!="交易日期" and df[0]!="" :
@@ -78,7 +77,7 @@ class HsbcPDFImporter(importer.ImporterProtocol):
                 payee = df[2]
                 price = re.sub('[^0-9.]+', '', df[3])
                 #price = df[3].lstrip("￥")
-                process_date = datetime.strptime("2024/"+df[0], "%Y/%m/%d")
+                process_date = datetime.strptime(process_year+"/"+df[0], "%Y/%m/%d")
                 currency = 'CNY'
                 amount = -Amount(D(price), currency)
         

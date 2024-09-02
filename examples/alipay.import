@@ -72,7 +72,7 @@ expenseDict = {
     "惠省钱": "Expenses:Life:Entertainment:Shopping",
     "教辅,教材": "Expenses:Life:Publications:Books",
     "剑桥英语,优考试,记忆曲线": "Expenses:Life:Education:TutoringFee",
-    "复印纸,日记本,书签,油画棒,教具,实验,收纳册,文具,练习册,作业": "Expenses:Life:Education:Stationery",
+    "粘土,一课一练,记号笔,复印纸,日记本,书签,油画棒,教具,实验,收纳册,文具,练习册,作业": "Expenses:Life:Education:Stationery",
     "厨房纸巾,湿巾,百洁布,收纳箱,清洁剂,晴雨两用伞,保鲜袋,牙刷,牙膏,眼镜布,美甲工具,擦眼镜纸,厕纸,洗衣凝珠,卫生纸,洗衣机清洗剂,垃圾袋,精油贴": "Expenses:Life:Living:Appliances",
     "网上国网": "Expenses:Life:Utilities:Electric",
     "SECA,Rui": "Expenses:Life:Entertainment:FitnessActivity",

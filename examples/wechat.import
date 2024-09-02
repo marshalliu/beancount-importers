@@ -42,7 +42,7 @@ accountDict = {
 expenseDict = {
     "餐厅,餐饮,火锅,西贝莜面村,麦当劳,汉堡王,KITCHEN,堂食,达美乐,美团,料理": "Expenses:Life:Dining:Lunch",
     "上海市实验学校": "Expenses:Life:Dining:Lunch",
-    "好特卖,阿果果,全家,雪碧,尚优选,MAXX": "Expenses:Life:Dining:Drinking",
+    "Manner,好特卖,阿果果,全家,雪碧,尚优选,MAXX": "Expenses:Life:Dining:Drinking",
     "多乐之日,早安巴黎": "Expenses:Life:Dining:Breakfast",
     "世纪联华,食材,鸡蛋,火腿,红薯,馄饨,烧卖,番茄,挂面,意面,西贝莜面村,梅干菜,披萨,粽子,小笼包,葱油饼,手抓饼,拌面,午餐肉,虾米,拉面": "Expenses:Life:Dining:Ingredients",
     "红星欧丽洛雅家居生活广场,停车,临停订单,恒盛苑,沪DHN750": "Expenses:Life:Auto:Parking",

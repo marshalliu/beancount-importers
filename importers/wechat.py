@@ -105,6 +105,12 @@ class WechatImporter(importer.ImporterProtocol):
                 elif row["交易类型"] == "微信红包" and account_1_text.rstrip("\t") == "/":
                     account_2 = self.accountDict["微信红包"]
                     flag = flags.FLAG_OKAY
+                elif row["交易类型"] == "信用卡还款" and narration == "":
+                    account_2_text = row['交易对方']
+                    account_2 = 'Assets.FIXME'
+                    for asset_k, asset_v in self.accountDict.items():
+                        if asset_k in account_2_text:
+                            account_2 = asset_v
 
                 # Insert a final balance check.
                 if (account_2 != None):

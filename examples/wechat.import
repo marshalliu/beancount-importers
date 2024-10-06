@@ -34,8 +34,9 @@ accountDict = {
     "农业银行": "Assets:Flow:Bank:ABCDebt",
     "工商银行": "Assets:Flow:Bank:ICBCDebt",
     "农业银行": "Assets:Flow:Bank:ABCDebt",
+    "中国银行储蓄卡": "Assets:Flow:Bank:BOCDebt",
     "建设银行储蓄卡": "Assets:Flow:Bank:CCBDebt",
-    "浦发银行(2073)": "Assets:Flow:Bank:SPDBDebt",
+    "浦发银行储蓄卡": "Assets:Flow:Bank:SPDBDebt",
     "/": "Assets:Flow:EBank:WeChat"
 }
 

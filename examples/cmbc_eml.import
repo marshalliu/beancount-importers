@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+import sys
+
+import beancount.ingest.extract
+
+isSmart = True
+try:
+    from smart_importer import apply_hooks, PredictPostings
+    from smart_importer.detector import DuplicateDetector
+    import jieba
+    jieba.initialize()
+    def tokenizer(s): return list(jieba.cut(s))
+except ImportError:
+    isSmart = False
+
+account = "Liabilities:Life:CreditCard:CMBC"
+
+beancount.ingest.extract.HEADER = ''
+sys.path.append("./")
+from importers.cmbc_eml import CmbcEmlImporter
+
+expenseDict = {
+    "上海销售浦西营销中心上中路油气": "Expenses:Life:Auto:Gasoline",
+    "上海市电力公司": "Expenses:Life:Utilities:Electric",
+    "交通卡,上海地铁": "Expenses:Life:Transportation:Metro",
+    "中国铁路网络有限公司": "Expenses:Life:Transportation:Train"
+}
+
+if isSmart:
+    CONFIG = [
+        apply_hooks(CmbcEmlImporter(account, expenseDict=expenseDict), [
+            DuplicateDetector(), PredictPostings(string_tokenizer=tokenizer)])
+    ]
+else:
+    CONFIG = [
+        CmbcEmlImporter(account, expenseDict=expenseDict)
+    ]

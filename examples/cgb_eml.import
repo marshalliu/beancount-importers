@@ -23,7 +23,7 @@ from importers.cgb_eml import CgbEmlImporter
 expenseDict = {
     "餐厅,餐饮,火锅,麦当劳,汉堡王,KITCHEN,拉扎斯网络科技": "Expenses:Life:Dining:Lunch",
     "上海市实验学校": "Expenses:Life:Dining:Lunch",
-    "好特卖HotMaxx,阿果果上海齐河路店,全家,尚优选超市": "Expenses:Life:Dining:Drinking",
+    "上海银商,好特卖HotMaxx,阿果果上海齐河路店,全家,尚优选超市": "Expenses:Life:Dining:Drinking",
     "多乐之日,早安巴黎": "Expenses:Life:Dining:Breakfast",
     "果茶,燕麦奶,小香肠,鸭舌": "Expenses:Life:Dining:Refreshment",
     "食材,鸡蛋,火腿,红薯,馄饨,烧卖,挂面,意面,西贝莜面村,梅干菜,披萨": "Expenses:Life:Dining:Ingredients",
@@ -43,7 +43,8 @@ expenseDict = {
     "保鲜袋,牙刷,眼镜布,美甲工具,擦眼镜纸": "Expenses:Life:Living:Appliances",
     "付费通,光大云缴费,网上国网": "Expenses:Life:Utilities:Electric",
     "消费金": "Income:Investment:OtherIncome",
-    "交通卡": "Expenses:Life:Transportation:Metro"
+    "交通卡,上海地铁": "Expenses:Life:Transportation:Metro",
+    "中国铁路网络有限公司": "Expenses:Life:Transportation:Train"
 }
 
 if isSmart:

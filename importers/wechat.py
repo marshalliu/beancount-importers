@@ -66,7 +66,7 @@ class WechatImporter(importer.ImporterProtocol):
                     continue  # skip the transfer to wechat
 
                 flag = flags.FLAG_WARNING
-                raw_amount = D(re.sub('[^0-9.]+', '', row['金额(元)']))
+                raw_amount = D(re.sub('[^0-9.-]+', '', row['金额(元)']))
                 isExpense = True if (row['收/支'] == '支出' or row['收/支'] == '/') else False
                 if isExpense:
                     raw_amount = -raw_amount

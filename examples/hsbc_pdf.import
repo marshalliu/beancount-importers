@@ -41,9 +41,10 @@ expenseDict = {
     "酒店": "Expenses:Life:Entertainment:Hotel",
     "教辅,教材": "Expenses:Life:Publications:Books",
     "复印纸,日记本": "Expenses:Life:Education:Stationery",
-    "保鲜袋,牙刷,眼镜布,美甲工具,擦眼镜纸": "Expenses:Life:Living:Appliances",
+    "保鲜袋,牙刷,眼镜布,美甲工具,擦眼镜纸,拼多多": "Expenses:Life:Living:Appliances",
     "网上国网": "Expenses:Life:Utilities:Electric",
     "燃气":  "Expenses:Life:Utilities:Gas",
+    "中国铁路网络有限公司":  "Expenses:Life:Transportation:Train",
     "SECA,Rui": "Expenses:Life:Entertainment:FitnessActivity",
 }
 

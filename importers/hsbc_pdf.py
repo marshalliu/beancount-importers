@@ -51,7 +51,7 @@ class HsbcPDFImporter(importer.ImporterProtocol):
         dfas = []
         index = 0
         tables = camelot.read_pdf(
-            file.name, 
+            file.name, password="",
             flavor='stream', pages="1-end", 
             split_text=True, strip_text='\n'
         )
@@ -75,7 +75,7 @@ class HsbcPDFImporter(importer.ImporterProtocol):
             if df[0][:2] != "卡号" and df[0]!="交易日期" and df[0]!="" :
                 flag = flags.FLAG_WARNING
                 payee = df[2]
-                price = re.sub('[^0-9.]+', '', df[3])
+                price = re.sub('[^0-9.-]+', '', df[3])
                 #price = df[3].lstrip("￥")
                 process_date = datetime.strptime(process_year+"/"+df[0], "%Y/%m/%d")
                 currency = 'CNY'

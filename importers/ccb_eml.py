@@ -52,9 +52,27 @@ class CcbEmlImporter(importer.ImporterProtocol):
         entries = []
         index = 0
         with open(file.name, 'rb') as f:
-            eml = parser.BytesParser(policy=policy.default).parse(fp=f)
-            b = eml.get_payload()[0].get_payload(decode=True).decode("UTF8")
-            d = BeautifulSoup(b, "lxml")
+            msg = parser.BytesParser(policy=policy.default).parse(fp=f)
+            #b = eml.get_payload()[0].get_payload(decode=True).decode("UTF8")
+            payload=""
+            for part in msg.walk():
+                if part.is_multipart():
+                    continue
+                
+                content_type = part.get_content_type()
+                content_disposition = str(part.get("Content-Disposition"))
+                if "attachment" in content_disposition:
+                    # Handle attachments
+                    filename = part.get_filename()
+                    # You can save the attachment or process it as needed
+                else:
+                    # Handle the content
+                    payload = part.get_payload(decode=True)
+                    charset = part.get_content_charset()
+                    if charset:
+                        payload = payload.decode(charset)
+            
+            d = BeautifulSoup(payload, "lxml")
             date_range = d.findAll(text=re.compile(
                 '\d{4}\/\d{1,2}\/\d{1,2}-\d{4}\/\d{1,2}\/\d{1,2}'))[0]
             transaction_date = dateparse(

@@ -21,9 +21,9 @@ sys.path.append("./")
 from importers.cgb_eml import CgbEmlImporter
 
 expenseDict = {
-    "餐厅,餐饮,火锅,麦当劳,汉堡王,KITCHEN,拉扎斯网络科技": "Expenses:Life:Dining:Lunch",
+    "红烧牛肉面,美团,马永真,餐厅,餐饮,火锅,麦当劳,汉堡王,KITCHEN,拉扎斯网络科技": "Expenses:Life:Dining:Lunch",
     "上海市实验学校": "Expenses:Life:Dining:Lunch",
-    "上海银商,好特卖HotMaxx,阿果果上海齐河路店,全家,尚优选超市": "Expenses:Life:Dining:Drinking",
+    "麟瑞超市,上海银商,好特卖HotMaxx,阿果果上海齐河路店,全家,尚优选超市": "Expenses:Life:Dining:Drinking",
     "多乐之日,早安巴黎": "Expenses:Life:Dining:Breakfast",
     "果茶,燕麦奶,小香肠,鸭舌": "Expenses:Life:Dining:Refreshment",
     "食材,鸡蛋,火腿,红薯,馄饨,烧卖,挂面,意面,西贝莜面村,梅干菜,披萨": "Expenses:Life:Dining:Ingredients",
@@ -35,7 +35,7 @@ expenseDict = {
     "优衣库,T恤,裙子": "Expenses:Life:ClothingBeauty:Clothes",
     "欧莱雅": "Expenses:Life:ClothingBeauty:Cosmetics",
     "民航上海医院,唯宜儿科,平安健康,维生素": "Expenses:Life:Medical:Drugs",
-    "安心接送,同程旅行,滴滴": "Expenses:Life:Transportation:Taxi",
+    "高德打车,银联云闪付,安心接送,同程旅行,滴滴": "Expenses:Life:Transportation:Taxi",
     "菜鸟裹裹,顺丰": "Expenses:Life:Transportation:Express",
     "惠省钱": "Expenses:Life:Entertainment:Shopping",
     "教辅,教材": "Expenses:Life:Publications:Books",

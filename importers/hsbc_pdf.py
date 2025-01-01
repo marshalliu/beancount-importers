@@ -46,12 +46,12 @@ class HsbcPDFImporter(importer.ImporterProtocol):
         return self.account_name
 
     def extract(self, file, existing_entries=None):
-        # Open the eml file and create directives.
+        # Open the pdf file and create directives.
         entries = []
         dfas = []
         index = 0
         tables = camelot.read_pdf(
-            file.name, password="",
+            file.name, password="263214577936",
             flavor='stream', pages="1-end", 
             split_text=True, strip_text='\n'
         )
@@ -118,7 +118,7 @@ class HsbcPDFImporter(importer.ImporterProtocol):
                     data.EMPTY_SET,
                     postings,
                 )
-
+                print(str(process_date.date())+","+payee+","+price)
                 entries.append(txn)        
 
         return entries

@@ -56,13 +56,14 @@ class CgbEmlImporter(importer.ImporterProtocol):
             if not eml.is_multipart():
                 b = eml.get_payload(decode=True).decode("GB18030")
                 d = BeautifulSoup(b, "lxml")
+                #print(d)
                 date_range = d.findAll(text=re.compile(
-                    '\d{4}\/\d{1,2}\/\d{1,2}至\d{4}\/\d{1,2}\/\d{1,2}'))[0]
+                    '\d{4}\/\d{1,2}\/\d{1,2}-\d{4}\/\d{1,2}\/\d{1,2}'))[0]
                 transaction_date = dateparse(
-                    date_range.split('至')[1].split('(')[0]).date()
+                    date_range.split('-')[1].split('(')[0]).date()
     
-                # 第1个class为currAmt的td为账单总金额 
-                balance = d.findAll('td', class_='currAmt')[0].text
+                # 第2个height=31的td为账单总金额 
+                balance = d.findAll('td', height='31')[1].text
                 txn_balance = data.Balance(
                     account=self.account_name,
                     amount=-Amount(D(balance), 'CNY'),
@@ -73,64 +74,65 @@ class CgbEmlImporter(importer.ImporterProtocol):
                 )
                 entries.append(txn_balance)
     
-                # 第1个class为acctDetail的table为账单明细列表 
-                lists = d.find_all('table', class_='acctDetail')[0]
-                trs = lists.find_all('tr')
-                for tr in trs:
-                    cols=tr.find_all('td')
-                    cols=[x.text.strip() for x in cols]
-                    trade_date = cols[0]
-                    try:
-                        dt = datetime.strptime(trade_date, "%Y/%m/%d")
-                    except:
-                        continue
+                # 账单明细列表 
+                tables = d.find_all('table', align='center', border='0', cellpadding='0', cellspacing='0', width='630')
+                for table in tables:
+                    trs = table.find_all('tr')
+                    for tr in trs:
+                        cols=tr.find_all('td')
+                        cols=[x.text.strip() for x in cols]
+                        trade_date = cols[0]
+                        try:
+                            dt = datetime.strptime(trade_date, "%Y/%m/%d")
+                        except:
+                            continue
     
-                    flag = flags.FLAG_WARNING
-                    payee = cols[2]
-                    price = cols[5]
-                    currency = 'CNY' if cols[4] == '人民币' else 'USD'
-                    amount = -Amount(D(price), currency)
-    
-                    account_2 = None
-                    for asset_k, asset_v in self.expenseDict.items():
-                        if asset_k.find(",") > -1:
-                            for asset_k1 in asset_k.split(","):
-                                if asset_k1 in payee:
-                                    account_2 = asset_v
-                                    flag = flags.FLAG_OKAY
-                        elif asset_k in payee:
-                            account_2 = asset_v
-                            flag = flags.FLAG_OKAY
-    
-                    if (account_2 != None):
-                        postings = [data.Posting(self.account_name, amount, None, None, None, None),
-                                    data.Posting(account_2, -amount, None, None, None, None)]
-                    else: 
-                        postings = [data.Posting(self.account_name, amount, None, None, None, None)]
-    
-                    meta = data.new_metadata(
-                        file.name, index, kvlist={
-                            "method": payee,
-                            "settleDate": cols[1],
-                            "source": "广发银行信用卡",
-                            "tradeCurrency": cols[4],
-                            "tradeAmt": cols[5]
-                            }
-                    )
-                    #logging.warn("%s:%s:%s", payee, narration, account_2)
-    
-                    txn = data.Transaction(
-                        meta,
-                        dt.date(),
-                        flag,
-                        payee,
-                        "",
-                        self.default_set,
-                        data.EMPTY_SET,
-                        postings,
-                    )
-    
-                    entries.append(txn)
+                        flag = flags.FLAG_WARNING
+                        payee = cols[2]
+                        price = cols[5]
+                        currency = 'CNY' if cols[4] == '人民币' else 'USD'
+                        amount = -Amount(D(price), currency)
+        
+                        account_2 = None
+                        for asset_k, asset_v in self.expenseDict.items():
+                            if asset_k.find(",") > -1:
+                                for asset_k1 in asset_k.split(","):
+                                    if asset_k1 in payee:
+                                        account_2 = asset_v
+                                        flag = flags.FLAG_OKAY
+                            elif asset_k in payee:
+                                account_2 = asset_v
+                                flag = flags.FLAG_OKAY
+        
+                        if (account_2 != None):
+                            postings = [data.Posting(self.account_name, amount, None, None, None, None),
+                                        data.Posting(account_2, -amount, None, None, None, None)]
+                        else: 
+                            postings = [data.Posting(self.account_name, amount, None, None, None, None)]
+        
+                        meta = data.new_metadata(
+                            file.name, index, kvlist={
+                                "method": payee,
+                                "settleDate": cols[1],
+                                "source": "广发银行信用卡",
+                                "tradeCurrency": cols[4],
+                                "tradeAmt": cols[5]
+                                }
+                        )
+                        #logging.warn("%s:%s:%s", payee, narration, account_2)
+        
+                        txn = data.Transaction(
+                            meta,
+                            dt.date(),
+                            flag,
+                            payee,
+                            "",
+                            self.default_set,
+                            data.EMPTY_SET,
+                            postings,
+                        )
+        
+                        entries.append(txn)
             # Insert a final balance check.
     
             return entries
